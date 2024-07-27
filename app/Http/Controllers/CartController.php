@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
-
 class CartController extends Controller
 {
     /**
@@ -12,21 +11,29 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cart = Cart::all();
-        if($cart->isEmpty())
-        {
-            return response()->json([
-                'message' => 'Data cart tidak ditemukan',
-                'data' => []
-            ],200);
-        }
-        else
-        {
-            return response()->json([
-                'message' => 'Berikut data cart',
-                'data' => $cart
-            ],200);
-        }        
+        $cart = Cart::with('user')->get();
+        
+    
+        // $userData=User::all();
+        // foreach($cart as $item){
+        //     $user_id =$item->user_id;
+        //     $user = User::where('id',$user_id)->first();
+        //     return $user;
+        // }
+        return response()->json([
+            'message' => 'Berikut data cart',
+            'data' => $cart
+        ],200);
+        // if($cart->isEmpty())
+        // {
+        //     return response()->json([
+        //         'message' => 'Data cart tidak ditemukan',
+        //         'data' => []
+        //     ],200);
+        // }
+        // else
+        // {
+        // }        
     }
 
     /**

@@ -44,7 +44,7 @@ Route::post('/order/{id}',[OrderController::class,'update']);
 Route::delete('/order/{id}',[OrderController::class,'destroy']);
 Route::get('/order/{id}',[OrderController::class,'show']);
 
-Route::get('/cart',[CartController::class, 'index']);
+Route::get('/carts',[CartController::class, 'index']);
 Route::post('/cart',[CartController::class, 'store']);
 Route::post('/cart/{id}',[CartController::class, 'update']);
 Route::delete('/cart/{id}',[CartController::class, 'destroy']);
