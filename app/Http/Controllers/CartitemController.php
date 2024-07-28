@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cartitem;
+use App\Models\Cart;
 
 class CartitemController extends Controller
 {
@@ -120,5 +121,14 @@ class CartitemController extends Controller
             'message' => "Data Cart Item ke $id berhasil dihapus",
             'data' => $cartitem
         ],200);
+    }
+
+    public function userCart($id)
+    {
+        //mencari data cart berdasarkan id user
+        $cart = Cart::where('user_id', $id)->first();
+        $cart_id = $cart->id;
+        //mencari data cartitem berdasarkan id cart
+        $cartitem = Cartitem::where('cart_id', $cart_id)->get();
     }
 }

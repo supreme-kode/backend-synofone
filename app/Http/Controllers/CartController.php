@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Cartitem;
 use Illuminate\Http\Request;
 class CartController extends Controller
 {
@@ -118,4 +119,7 @@ class CartController extends Controller
             'data'  => $cart
         ],200);
     }
+
+    
+
 }
