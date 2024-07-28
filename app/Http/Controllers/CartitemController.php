@@ -57,7 +57,7 @@ class CartitemController extends Controller
             $findCart->qty = $findCart->qty + $request->qty;
             $findCart->save();
             return response()->json([
-                'message' => 'Berhasil menambahkan data cartitem',
+                'message' => 'Berhasil menambahkan quantity data cartitem',
                 'data' => $findCart
             ], 200);
         } else {
