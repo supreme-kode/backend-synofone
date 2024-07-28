@@ -52,11 +52,21 @@ class CartitemController extends Controller
             'qty' => 'required'
         ]);
 
-        $cartitem = new Cartitem;
-        $cartitem->cart_id = $request->cart_id;
-        $cartitem->product_id = $request->product_id;
-        $cartitem->qty = $request->qty;
-        $cartitem->save();
+        $findCart = Cartitem::where('cart_id', $request->cart_id)->where('product_id', $request->product_id)->first();
+        if ($findCart) {
+            $findCart->qty = $findCart->qty + $request->qty;
+            $findCart->save();
+            return response()->json([
+                'message' => 'Berhasil menambahkan data cartitem',
+                'data' => $findCart
+            ], 200);
+        } else {
+            $cartitem = Cartitem::create([
+                'cart_id' => $request->cart_id,
+                'product_id' => $request->product_id,
+                'qty' => $request->qty
+            ]);
+        }        
 
         return response()->json([
             'message' => 'Data Cart Item berhasil disimpan',
@@ -130,5 +140,18 @@ class CartitemController extends Controller
         $cart_id = $cart->id;
         //mencari data cartitem berdasarkan id cart
         $cartitem = Cartitem::where('cart_id', $cart_id)->get();
+
+        return response()->json([
+            'message' => "Data Cart Item berhasil diambil",
+            'data' => $cartitem
+        ],200);
+    }
+    public function coba()
+    {
+        $ambildatacartitem = Cartitem::all();
+        return response()->json([
+            'message' => 'Data Cart Item',
+            'data' => $ambildatacartitem
+        ],200);
     }
 }

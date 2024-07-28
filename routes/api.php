@@ -8,6 +8,7 @@ use App\Http\Controllers\CartitemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Models\Cartitem;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,5 +56,6 @@ Route::post('/cartitem',[CartitemController::class, 'store']);
 Route::post('/cartitemupdate/{id}',[CartitemController::class, 'update']);
 Route::delete('/cartitem/{id}',[CartitemController::class, 'destroy']);
 Route::get('/cartitem/{id}',[CartitemController::class, 'show']);
+Route::get('/coba',[CartitemController::class,'coba']);
 
 Route::get('/user-cart/{id}',[CartitemController::class, 'userCart']);
