@@ -52,6 +52,6 @@ Route::get('/cart/{id}',[CartController::class, 'show']);
 
 Route::get('/cartitem',[CartitemController::class, 'index']);
 Route::post('/cartitem',[CartitemController::class, 'store']);
-Route::post('/cartitem/{id}',[CartitemController::class, 'update']);
+Route::post('/cartitemupdate/{id}',[CartitemController::class, 'update']);
 Route::delete('/cartitem/{id}',[CartitemController::class, 'destroy']);
 Route::get('/cartitem/{id}',[CartitemController::class, 'show']);

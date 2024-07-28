@@ -63,9 +63,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(string $id)
     {
-        //
+        $user = User::find($id);
+        return response()->json([
+            'message' => "Data user ke $id ditemukan",
+            'data' => $user
+        ],200);
     }
 
     /**
@@ -79,16 +83,46 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'required',
+            'password_confirmation' => 'required'
+        ]);
+        if ($request->password != $request->password_confirmation) {
+            return response()->json([
+                'status' => 'Password Tidak Sama'
+            ], 400);
+        }
+        else 
+        {
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->password_confirmation = $request->password_confirmation;
+            $user->save();
+        }
+        return response()->json([
+            'message' => "Data user dengan id $id berhasil diubah",
+            'data' => $user
+        ],200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        if (!$user)
+        {
+            return response()->json([
+                'message' => 'Data user tidak ditemukan'
+            ],400);
+        }
+        $user->delete();
     }
 }

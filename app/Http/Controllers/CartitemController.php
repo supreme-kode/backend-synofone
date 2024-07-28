@@ -12,7 +12,9 @@ class CartitemController extends Controller
      */
     public function index()
     {
-        $cartitem = Cartitem::all();
+        //menambahkan data produk pada chart item
+        $cartitem = Cartitem::with('product')->get();
+
         if ($cartitem->isEmpty())
         {
             return response()->json([

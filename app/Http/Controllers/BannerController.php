@@ -23,6 +23,11 @@ class BannerController extends Controller
             'keterangan'=>'required',
         ]);
 
+        if ($request->hasFile('image'))
+        {
+            
+        }
+
         $banner = new Banner;
         $banner->image = $request->image;
         $banner->keterangan = $request->keterangan;
@@ -34,7 +39,7 @@ class BannerController extends Controller
         ],200);
     }
 
-    public function update (Request $request, string $id)
+    public function update (Request $request, Banner $id)
     {
         $request->validate([
             'image' => 'required',
@@ -48,6 +53,12 @@ class BannerController extends Controller
         $banner->image = $request->image;
         $banner->keterangan = $request->keterangan;
         $banner->save();
+
+        $id->update([
+            'image' => $request->image,
+            'keterangan' => $request->keterangan
+        ]);
+
 
         //memberikan respon ke pengguna
         return response()->json([
