@@ -12,21 +12,29 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::all();
-        if ($order->isEmpty())
-        {
-            return  response()->json([
-                'message' => 'Data order tidak ditemukan',
-                'data' => []
-            ],400);
-        }
-        else 
-        {
-            return response()->json([
-                'message' => 'Data order dtemukan',
-                'data'  =>  $order
-            ],200);
-        }
+        // $order = Order::all();
+        // if ($order->isEmpty())
+        // {
+        //     return  response()->json([
+        //         'message' => 'Data order tidak ditemukan',
+        //         'data' => []
+        //     ],400);
+        // }
+        // else 
+        // {
+        //     return response()->json([
+        //         'message' => 'Data order dtemukan',
+        //         'data'  =>  $order
+        //     ],200);
+        // }
+
+        $order = Order::with('cart','user')->get();
+
+        return response()->json([
+            'message' => 'Data order berhasil ditemukan',
+            'data' => $order
+        ],200);
+        
     }
 
     /**
